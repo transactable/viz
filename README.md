@@ -15,8 +15,6 @@ root/
 ├── app/
 │ └── viz/
 │   ├── page.tsx
-│   ├── src/
-|   |   └── sliders.ts
 │   └── components
 |       └── VertSlider.tsx
 |
