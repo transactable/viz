@@ -10,8 +10,7 @@ const Nav = () => {
         <p className="logo_text">Viztopia</p> 
       </Link>
       <div>
-        <Link href="/visualizer" className="nav_link">Visualizer</Link>
-        <Link href="/viz" className="nav_link ml-3">Viz</Link>
+        <Link href="/viz" className="nav_link">Viz</Link>
       </div>
     </nav>
   )
