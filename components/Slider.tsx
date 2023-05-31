@@ -16,14 +16,25 @@ type SliderFormItem = {
 }
 
 type SliderProps = {
-  slider: SliderFormItem,
+  // slider: SliderFormItem,
+  id: number,
+  // key: string,
+  label: string,
+  topLabel: string,
+  bottomLabel: string,
+  step: number,
+  value: number,
+  min: number,
+  max: number,
+  weight: number
   updateScore: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 const Slider = ( props: SliderProps): ReactElement => {
 
-  const { slider, updateScore } = props
-  const { id, topLabel, bottomLabel, step, value, min, max, weight } = slider
+  const { id, topLabel, bottomLabel, step, value, min, max, weight, updateScore } = props
+  // const { slider, updateScore } = props
+  // const { id, topLabel, bottomLabel, step, value, min, max, weight } = slider
 
   const valueIndicatorRef = useRef<HTMLDivElement | null>(null)
   const [rangeValue, setRangeValue] = useState<number>(value)

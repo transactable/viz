@@ -1,4 +1,4 @@
-export type SliderFormData = {
+export type VizData = {
     criticism?: boolean,
     comment?: boolean,	
     reporting?: boolean,
@@ -18,7 +18,6 @@ export type SliderFormData = {
     duplicitous?: number,	
   }
 
-
 export type CheckboxSubItem = {
     id: number;
     type: 'checkbox';
@@ -28,7 +27,7 @@ export type CheckboxSubItem = {
     weight: number;
 };
   
-export type SliderSubItem = {
+export type VizSubItem = {
     id: number;
     type: 'slider';
     key: string;
@@ -40,7 +39,7 @@ export type SliderSubItem = {
     weight: number;
 };
 
-export type SubItem = CheckboxSubItem | SliderSubItem;
+export type SubItem = CheckboxSubItem | VizSubItem;
 
 export type SliderItem = {
 id: number;
@@ -313,7 +312,7 @@ export interface SliderData {
     duplicitous?: number,	
 }
 
-const getSlidersData = () => {
+const getVizData = () => {
     const workingObjInitData: SliderData = {
         criticism: false,
         comment: false,
@@ -334,7 +333,6 @@ const getSlidersData = () => {
         duplicitous: 0,
       };
     const workingObjWeight: { [key: string]: number } = {};
-    
     let slidersWeightDenominator = 0
     slidersArray.map((slider) => {
         slider.items.map((item) => {
@@ -348,10 +346,10 @@ const getSlidersData = () => {
 } 
 
 // 👇️ assign to variable
-const sliders = {
+const viz = {
     slidersArray,
-    getSlidersData
+    getVizData
 };
     
-export default sliders;
+export default viz;
 

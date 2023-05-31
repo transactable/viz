@@ -1,4 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# User-Input Fair-Use Calculator
+
+This project contains a user-input fair-use calculator implemented in the Next.js application. The calculator is located in the root/app/viz page directory and utilizes a component called VertSlider.
+
+## Project Structure
+
+The project follows the following directory structure:
+
+root/
+├── app/
+│ └── viz/
+│   ├── page.tsx
+│   ├── src/
+|   |   └── sliders.ts
+│   └── components
+|       └── VertSlider.tsx
+|
+├── functions/
+|       └── classnames.tsx
+|
+├── models/
+|       ├── Visualizer.tsx
+|       └── Viz.tsx
+|
+├── styles/
+|       ├── global.css
+|       ├── Slider.modulecss
+|       ├── VertSlider.module.css
+|       └── FairUse.module.css
+
+
+- `page.tsx` in the `app/viz/` directory is the main page that displays the fair-use calculator and handles user inputs.
+- `VertSlider.tsx` in the `app/viz/` directory is a component used by the fair-use calculator to render vertical sliders and calculate scores.
+- `Viz.ts` in the `model/` directory is a parameterized file that defines the layout and logic for the selectable inputs in the fair-use calculator.
+
+## Fair-Use Calculator Layout
+
+The fair-use calculator allows users to input their selections through a set of selectable inputs, which are grouped into a CSS-styled card with a title. Each selectable input can be either a group of checkboxes or a single vertical slider.
+
+- Checkboxes: Users can select multiple checkboxes within a group. Each checkbox has an associated score weighting.
+- Vertical Slider: Users can slide the vertical slider to select a value within the specified range. Each slider also has a score weighting.
+
+The layout and grouping of the selectable inputs are defined in the `Viz.ts` model file, allowing for flexibility and customization.
+
+## Calculation Logic
+
+The fair-use calculator calculates a score ranging from 0 to 100 based on the user's selections. When all checkboxes or vertical sliders are selected or slid to their maximum position, the calculator calculates the cumulative score by considering the score weightings associated with each selected input.
+
+The logic for score calculation and user interaction is implemented in the `VertSlider` component. The component handles user input, updates the selected values, and calculates the cumulative score based on the selected inputs.
+
+## Usage
+
+To use the fair-use calculator, navigate to the `app/viz/` page in the Next.js application. Interact with the checkboxes and vertical sliders to make your selections. The cumulative score will be displayed based on your inputs.
+
+Feel free to customize the selectable inputs, layout, and logic by modifying the `Viz.ts` model file.
 
 ## Getting Started
 
@@ -32,3 +86,9 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+
+
+
+

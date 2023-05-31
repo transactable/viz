@@ -1,12 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
 import styles from '@styles/VertSlider.module.css'
 
-import { SliderData, SliderSubItem } from '../src/sliders'
+import { VizData, VizSubItem } from '@models/Viz'
 
 type VertSliderProps = {
   id: number,
-  item: SliderSubItem,
-  data: SliderData,
+  item: VizSubItem,
+  data: VizData,
   handleField: (value: any, name: string) => void
 }
 
@@ -58,7 +58,7 @@ const WizVertSlider = (props: VertSliderProps): React.ReactElement => {
           className={styles.vertSlider} 
           type="range" 
           step={1} 
-          value={data[item.key as keyof SliderData] as number}
+          value={data[item.key as keyof VizData] as number}
           min={0} 
           max={100} 
           onChange={e => {

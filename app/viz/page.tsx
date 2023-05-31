@@ -1,28 +1,28 @@
 'use client'
 import React, { useState, useRef, useEffect, FormEvent } from 'react';
-import sliders, { SliderFormData } from './src/sliders'
+import viz, { VizData } from '@models/Viz'
 import classnames from '../../functions/classnames'
 import styles from '@styles/FairUse.module.css'
 import VertSlider from './components/VertSlider'
 
-const [initData, slidersWeightDenominator, slidersWeightObj] = sliders.getSlidersData()
+const [initData, slidersWeightDenominator, slidersWeightObj] = viz.getVizData()
 const slidersWeight = slidersWeightObj
 
 export default function FairUse (): React.ReactElement {
-    const [data, setData] = useState<SliderFormData>(initData as SliderFormData);
+    const [data, setData] = useState<VizData>(initData as VizData);
     const [score, setScore] = useState(0)
     const progressBarRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         if (progressBarRef && progressBarRef.current) {
-        progressBarRef.current.style.width = score + '%'
-        if (score < 25) {
-            progressBarRef.current.style.background = 'red'
-        } else if (score < 75) {
-            progressBarRef.current.style.background = 'orange'
-        } else {
-            progressBarRef.current.style.background = 'green'
-        }
+            progressBarRef.current.style.width = score + '%'
+            if (score < 25) {
+                progressBarRef.current.style.background = 'red'
+            } else if (score < 75) {
+                progressBarRef.current.style.background = 'orange'
+            } else {
+                progressBarRef.current.style.background = 'green'
+            }
         }
     }, [score]);
 
@@ -46,7 +46,7 @@ export default function FairUse (): React.ReactElement {
         setScore(cumulatedScore/(slidersWeightDenominator as number))
     }, [data]);
 
-    function updateFields(fields: Partial<SliderFormData>) {
+    function updateFields(fields: Partial<VizData>) {
         setData(prev => {
         if (typeof prev === 'object' && !Array.isArray(prev)) {
             return { ...prev, ...fields };
@@ -55,14 +55,14 @@ export default function FairUse (): React.ReactElement {
         });
     }
     
-    const handleField = (value: string, name: string) => {
+    function handleField (value: string, name: string) {
         const obj = {
             [name]: value,
         }
         updateFields(obj)
     }
 
-    const handleCheckbox = (checked: boolean, name: string) => {
+    function handleCheckbox (checked: boolean, name: string) {
         const obj = {
             [name]: checked,
         }
@@ -72,6 +72,7 @@ export default function FairUse (): React.ReactElement {
     return (
         <div>
             <div className='p-4 md:p-8'>
+            <h2 className="font-semibold leading-6 text-gray-900 mb-16 text-3xl text-center">Fair Use Visualizer</h2>
                 <div className='w-100 flex justify-between items-center'>
                     <div className={classnames('text-2xl font-bold', score >= 50 ? 'text-green-700 font-extra-bold' : '' )}>
                         Fair use score: {Math.trunc(score)}
@@ -87,7 +88,7 @@ export default function FairUse (): React.ReactElement {
                 </div>
             </div>
             <div className="lg:grid lg:grid-cols-10 lg:gap-x-1 my-16">
-                {sliders.slidersArray.map((step, stepIdx) => (
+                {viz.slidersArray.map((step, stepIdx) => (
                     <div key={stepIdx}  className={classnames
                         (
                             'space-y-6 sm:px-1',
@@ -115,7 +116,7 @@ export default function FairUse (): React.ReactElement {
                                                                 <input
                                                                     type="checkbox"
                                                                     name={subItem.key}
-                                                                    checked={data[subItem.key as keyof SliderFormData] as boolean}
+                                                                    checked={data[subItem.key as keyof VizData] as boolean}
                                                                     className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                                                     onChange={e => {
                                                                         handleCheckbox(e.target.checked, subItem.key)

@@ -3,12 +3,18 @@ import { Visualizer } from '@models/Visualizer'
 import Slider from '@components/Slider'
 import Link from 'next/link'
 import Image from 'next/image'
+import classnames from '@functions/classnames'
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
-}
+// function classNames(...classes: string[]) {
+//   return classes.filter(Boolean).join(' ')
+// }
 
 export default function Visualizer() {
+
+  function handleUpdateScore () {
+    console.log('handling ')
+  }
+
   return (
 
     <div className="flex h-screen flex-col items-center justify-between p-24">
@@ -46,6 +52,7 @@ export default function Visualizer() {
                 min={0}
                 max={100}
                 weight={1}
+                updateScore={handleUpdateScore}
               />
             </div>
             <div>
@@ -59,6 +66,7 @@ export default function Visualizer() {
                 min={0}
                 max={100}
                 weight={1}
+                updateScore={handleUpdateScore}
               />
             </div>
           </dd>
@@ -78,6 +86,7 @@ export default function Visualizer() {
                 min={0}
                 max={100}
                 weight={1}
+                updateScore={handleUpdateScore}
               />           
             </div>
           </dd>
@@ -97,6 +106,7 @@ export default function Visualizer() {
                 min={0}
                 max={100}
                 weight={1}
+                updateScore={handleUpdateScore}
               /> 
              <Slider 
                 id={5}
@@ -108,6 +118,7 @@ export default function Visualizer() {
                 min={0}
                 max={100}
                 weight={1}
+                updateScore={handleUpdateScore}
               /> 
             <Slider 
                 id={6}
@@ -119,6 +130,7 @@ export default function Visualizer() {
                 min={0}
                 max={100}
                 weight={1}
+                updateScore={handleUpdateScore}
               /> 
             </div>
           </dd>
@@ -138,6 +150,7 @@ export default function Visualizer() {
                 min={0}
                 max={100}
                 weight={1}
+                updateScore={handleUpdateScore}
               /> 1
             <Slider 
                 id={8}
@@ -149,6 +162,7 @@ export default function Visualizer() {
                 min={0}
                 max={100}
                 weight={1}
+                updateScore={handleUpdateScore}
               /> 
             </div>
           </dd>
@@ -168,6 +182,7 @@ export default function Visualizer() {
                 min={0}
                 max={100}
                 weight={1}
+                updateScore={handleUpdateScore}
               />              
             </div>
           </dd>
