@@ -26,23 +26,35 @@ export default function FairUse (): React.ReactElement {
         }
     }, [score]);
 
+    // The folowing code iterates over each key in the data object and retrieves the corresponding value. 
+    // It also retrieves the weight value from the slidersWeight object using the same key. 
+    // Based on the type of the data value, it performs different calculations:
+    // If the data value is a boolean and true, it multiplies 100 by the weight value 
+    // (or 1 if weight value is not a number) and adds it to the score.
+    // If the data value is a string, it attempts to parse it as an integer. 
+    // If successful, it multiplies the parsed integer value by the weight value 
+    // (or 1 if weight value is not a number) and adds it to the score.
+    // At the end of the reduction, the accumulated score is stored in the cumulatedScore variable.
     useEffect(() => {
         const cumulatedScore: number = Object.keys(data).reduce((score, key) => {
             const dataValue = (data as { [key: string]: string | boolean | number })[key];
             const weightValue = (slidersWeight as { [key: string]: number })[key];
+            // Check if the data value is a boolean and true
             if (typeof dataValue === "boolean" && dataValue) {
                 const multiplier = typeof weightValue === "number" ? weightValue : 1;
                 return score + (100 * multiplier);
             }
+            // Check if the data value is a string
             if (typeof dataValue === "string") {
                 const intDataValue = parseInt(dataValue, 10);
                 const intWeightValue = typeof weightValue === "number" ? weightValue : 1;
+                // Check if the data value can be parsed as an integer
                 if (!isNaN(intDataValue)) {
-                return score + (intDataValue * intWeightValue);
+                return score + (intDataValue * intWeightValue); // Add the parsed integer value multiplied by the weight to the score
                 }
             }
-            return score;
-            }, 0);
+            return score; // Return the score accumulator
+        }, 0);
         setScore(cumulatedScore/(slidersWeightDenominator as number))
     }, [data]);
 

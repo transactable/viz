@@ -2,10 +2,15 @@
 
 This project contains a user-input fair-use calculator implemented in the Next.js application. The calculator is located in the root/app/viz page directory and utilizes a component called VertSlider.
 
+The original nav bar selector 'Visualizer' has been refactored and added as 'Viz' additional nav bar page selector.
+
+'Viz' is the new, refactored update.
+
 ## Project Structure
 
 The project follows the following directory structure:
 
+```
 root/
 ├── app/
 │ └── viz/
@@ -27,7 +32,7 @@ root/
 |       ├── Slider.modulecss
 |       ├── VertSlider.module.css
 |       └── FairUse.module.css
-
+```
 
 - `page.tsx` in the `app/viz/` directory is the main page that displays the fair-use calculator and handles user inputs.
 - `VertSlider.tsx` in the `app/viz/` directory is a component used by the fair-use calculator to render vertical sliders and calculate scores.
