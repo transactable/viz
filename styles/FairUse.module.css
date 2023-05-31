@@ -1,0 +1,276 @@
+.pageWrapper {
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    display: flex;
+    margin-top: 0;
+    padding: 0.75rem;
+  }
+  
+  .pageInner {
+    position: relative;
+    box-shadow: none;
+    padding: 0;
+    background-color: white;
+    border-color: none;
+    border-width: 0;
+    border-radius: 0;
+    /* max-width: 500px; */
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+  
+  
+  
+  
+  .formUpdateEl {
+    position: absolute;
+    top: 0.75rem;
+    right: 1.25rem;
+  
+  }
+  
+  .buttonsWrapper {
+    margin-top: 2rem;
+    justify-content: flex-end;
+    display: flex;
+    margin: 0.5rem;
+    gap: 1rem;
+  }
+  
+  .buttonsWrapper button {
+    --shadow-color: rgba(59,130,246,.5);
+    --bg-to-color: var(--epy__color-logo);
+    --bg-from-color: var(--epy__color-logo-dim);
+    --bg-gradient-stops: var(--bg-from-color),var(--bg-to-color);
+    box-shadow: 0 10px 15px -3px var(--shadow-color),0 4px 6px -4px var(--shadow-color);
+    color: var(--color-bg);
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    background-image: linear-gradient(to bottom,var(--bg-gradient-stops));
+    cursor: pointer;
+    border-width: 2px;
+    border-radius: 0.5rem;
+    border-color: var(--epy__color-logo);
+  }
+  
+  .buttonsWrapper button:hover {
+    font-weight: 700;
+    --bg-hover-to-color:  #16a34a;
+    --bg-hover-from-color: #bbf7d0;
+    --bg-hover-gradient-stops: var(--bg-hover-from-color),var(--bg-hover-to-color);
+    background-image: linear-gradient(to bottom,var(--bg-hover-gradient-stops));
+    border-color: rgb(22 163 74);
+    color: white;
+  }
+  
+  .controlsWrapper {
+    position: relative;
+    height: 120px;
+  }
+  
+  
+  .controls {
+    display: block;
+    color: #000;
+    pointer-events: none;
+    font-size: 10px;
+    position: absolute;
+    top: auto;
+    bottom: 12px;
+    right: 12px;
+    left: auto;
+    z-index: 11;
+  }
+  
+  .controls .enabled {
+    visibility: visible;
+    opacity: .7;
+    cursor: pointer;
+    transform: none;
+  }
+  
+  .controls[data-controls-back-arrows=faded] .navigateLeft.enabled :not(:hover), 
+  .controls[data-controls-back-arrows=faded] .navigateUp.enabled :not(:hover) {
+    opacity: .4;
+  }
+  
+  .controls[data-controls-back-arrows=faded] .navigateUp.enabled:hover,
+  .controls[data-controls-back-arrows=faded] .navigateLeft.enabled:hover,
+  .controls .enabled:hover
+  {
+    opacity: 1;
+  }
+  
+  
+  .controls .navigateUp {
+    right: 3.2em;
+    bottom: 6.4em;
+    /* transform: translateY(-10px); */
+  }
+  .controls .navigateLeft {
+    right: 6.4em;
+    bottom: 3.2em;
+  }
+  .controls .navigateDown {
+    right: 3.2em;
+    bottom: -1.4em;
+    padding-bottom: 1.4em;
+    /* transform: translateY(10px); */
+  }
+  .controls .navigateRight {
+    right: 0;
+    bottom: 3.2em;
+    /* transform: translateX(10px); */
+  }
+  
+  .controls button {
+    --tw-text-opacity: 1;
+    position: absolute;
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+    /* color: var(--epy__color-logo); */
+    /* cursor: pointer;
+    color: currentColor;
+    transform: scale(.9999); */
+    transition: color .2s ease,opacity .2s ease,transform .2s ease;
+    z-index: 2;
+    pointer-events: auto;
+    font-size: inherit;
+    /* /* visibility: hidden; */
+    opacity: 0; 
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .controls .controlsArrow {
+    position: relative;
+    width: 3.6em;
+    height: 3.6em;
+  }
+  
+  .controls .navigateUp .controlsArrow {
+    transform: rotate(90deg);
+  }
+  .controls .navigateDown .controlsArrow {
+    transform: rotate(-90deg);
+  }
+  .controls .navigateRight .controlsArrow {
+    transform: rotate(180deg);
+  }
+  
+  .controls .controlsArrow:after, .controls .controlsArrow:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2.6em;
+    height: 0.5em;
+    border-radius: 0.25em;
+    color: red;
+    background-color: currentColor;
+    transition: all .15s ease,background-color .8s ease;
+    transform-origin: 0.2em 50%;
+    will-change: transform;
+  }
+  
+  
+  .controls .controlsArrow:before {
+    transform: translateX(0.5em) translateY(1.55em) rotate(45deg);
+  }
+  .controls .controlsArrow:hover:before {
+    transform: translateX(0.5em) translateY(1.55em) rotate(40deg);
+  }
+  .controls .controlsArrow:after {
+    transform: translateX(0.5em) translateY(1.55em) rotate(-45deg);
+  }
+  .controls .controlsArrow:hover:after {
+    transform: translateX(0.5em) translateY(1.55em) rotate(-40deg);
+  }
+  
+  .controls .controlsArrow:after, .controls .controlsArrow:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2.6em;
+    height: 0.5em;
+    border-radius: 0.25em;
+    color: var(--color-bg);
+    transition: all .15s ease, white .8s ease;
+    transform-origin: 0.2em 50%;
+    will-change: transform;
+  }
+  
+  .controls[data-controls-back-arrows=faded] .navigateLeft.enabled, 
+  .controls[data-controls-back-arrows=faded] .navigateUp.enabled {
+    opacity: .3;
+  }
+  
+  
+  
+  
+  /* tailwind sm */
+  @media (min-width: 640px) {
+    .pageWrapper {
+        /* margin-top: 3rem; */
+        padding: 0;
+    }
+  
+    .buttonsWrapper {
+        margin: 0.5rem;
+    }
+  
+  
+    /* .pageInner {
+        padding-right: 1.25rem;
+        padding-left: 1.25rem;
+    } */
+  
+    .pageInner {
+      --epy-shadow-color: rgba(59,130,246,.5);
+      position: relative;
+      box-shadow: 0 10px 15px -3px var(--epy-shadow-color),0 4px 6px -4px var(--epy-shadow-color);
+      padding: 1.25rem;
+      background-color: white;
+      border-color: rgb(229 231 235);
+      border-width: 4px;
+      border-radius: 0.25rem;
+      /* max-width: 500px; */
+      margin: 0.75rem;
+      padding-top: 1.25rem;
+      padding-bottom: 1.25rem;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+      width: 100%;
+    }
+  
+  
+  
+  }
+  
+  
+  
+  /* tailwind md */
+  @media (min-width: 768px) {
+    .pageWrapper {
+        margin-top: 0;
+        padding: 1rem;
+    }
+  }
+  
+  /* tailwind lg
+  @media (min-width: 1024px) {
+    .laptop\:text-center { text-align: center }
+  }
+  
+  tailwind xl
+  @media (min-width: 1280px) {
+    .desktop\:text-center { text-align: center }
+  } */
