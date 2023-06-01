@@ -1,19 +1,51 @@
+'use client';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import classnames from '@functions/classnames';
+import { navLinks } from '@utils/navLinks';
 
 const Nav = () => {
-
+  const { homeLink, nonHomeLinks } = navLinks;
+  const pathname = usePathname();
+    
   return (
-    <nav className="flex-between w-full mb-16 pt-3">
-      <Link href="/" className="flex gap-2 flex-center">
-        <Image src="/assets/images/logo.svg" alt="Viztopia Logo" width={30} height={30} /> 
-        <p className="logo_text">Viztopia</p> 
+    <nav>
+      {/* Render homeLink */}
+      <Link 
+        href="/" 
+        className={classnames(
+          'flex items-center space-x-2',
+          pathname=='/' ? 'pointer-events-none' : ''
+        )}
+      >
+        <Image src={homeLink.img.src} alt={homeLink.img.alt} width={30} height={30} /> 
+        <p className={classnames(
+          "logo_text"
+          )}
+        >
+          {homeLink.label}
+        </p>
       </Link>
-      <div>
-        <Link href="/viz" className="nav_link">Viz</Link>
+      {/* Render nonHomeLinks */}
+      <div className="flex space-x-4">
+        {nonHomeLinks.map((link) => {
+          const isActive = pathname == link.href;
+          return (
+            <Link href={link.href} key={link.id} className={classnames(isActive ? 'pointer-events-none' : '')}>
+            <div 
+              className={classnames(
+                isActive ? 'text-blue-600 font-semibold' : 'text-black hover:text-gray-500'
+              )}
+            >
+              {link.label}
+            </div>
+          </Link>
+          )
+        })}
       </div>
     </nav>
-  )
+  );
 }
 
 export default Nav

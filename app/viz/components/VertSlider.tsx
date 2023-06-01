@@ -48,7 +48,7 @@ const WizVertSlider = (props: VertSliderProps): React.ReactElement => {
   
   return (
     <div className="h-full flex flex-col items-center">
-      <div className=''>
+      <div className='mb-1'>
         {item.topLabel}
       </div>
       <div className='h-full flex'>
@@ -72,7 +72,7 @@ const WizVertSlider = (props: VertSliderProps): React.ReactElement => {
           </div>
         </div>
       </div>
-      <span className='mt-1 h-[48px] text-center'>{item.bottomLabel}</span>
+      <span className='h-[48px] text-center leading-tight'>{item.bottomLabel}</span>
     </div> 
   )
 }

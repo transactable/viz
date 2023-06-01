@@ -8,6 +8,13 @@
   Note: The styles for this gradient grid background is heavily inspired by the creator of this amazing site (https://dub.sh) – all credits go to them! 
 */
 
+nav {
+  padding: 0.75rem;
+  justify-content: space-between;
+  width: 100%;
+  display: flex;
+}
+
 .main {
   width: 100vw;
   min-height: 100vh;

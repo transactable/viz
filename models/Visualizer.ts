@@ -59,14 +59,19 @@ const calculateScore = (props: Visualizer) => {
   //----------------------------------------------------------
   // Factor 1 -Purpose
   SubFactor1_Purpose = parseInt(document.forms[0].MainContent_tbUse.value);
-  if (RadioButton.value) {
+//   if (RadioButton.value) {
       SubFactor1_Purpose = .33;
-  }
-  // Factor 1 - Use
-  SubFactor1_Use = Slider.value);
+//   }
+
+// Factor 1 - Use
+//   SubFactor1_Use = Slider.value);
+SubFactor1_Use = .33;
+
 
   // Factor 1 -Transform
-  SubFactor1_Transform = Slider.value);
+//   SubFactor1_Transform = Slider.value);
+SubFactor1_Transform = .33;
+
 
   Factor1 = (SubFactor1_Purpose + SubFactor1_Use + SubFactor1_Transform) / 3;
 
@@ -74,15 +79,21 @@ const calculateScore = (props: Visualizer) => {
   //----------------------------------------------------------
   // Factor 2 - Nature of Copyrighted Works (Worthiness)
   //----------------------------------------------------------
-  Factor2 = (Slider).value);
+//   Factor2 = (Slider).value);
+Factor2 = 1;
 
 
   //----------------------------------------------------------
   // Factor 3 - Amount and Substantiality of Use
   //----------------------------------------------------------
-  SubFactor3_Taken = (Slider.value);
-  SubFactor3_Quality = (Slider.value);
-  SubFactor3_Ratio = (Slider.value);
+//   SubFactor3_Taken = (Slider.value);
+//   SubFactor3_Quality = (Slider.value);
+//   SubFactor3_Ratio = (Slider.value);
+SubFactor3_Taken = 1;
+SubFactor3_Quality = 1;
+SubFactor3_Ratio = 1;
+
+
   // Normalize Factor3
   if (SubFactor1_Transform > 50) {
       SubFactor3_Taken += 1;
@@ -102,8 +113,13 @@ const calculateScore = (props: Visualizer) => {
   //----------------------------------------------------------
   // Factor 4 - The Effect of the Use upon the Potential Market for or Value of the Copyrighted Work
   //----------------------------------------------------------
-  SubFactor4_Original = (Slider.value);
-  SubFactor4_Derivative = (Slider.value);
+//   SubFactor4_Original = (Slider.value);
+//   SubFactor4_Derivative = (Slider.value);
+
+SubFactor4_Original = 1;
+SubFactor4_Derivative = 1;
+
+
   // Normalize Factor4
   Factor4 = (SubFactor4_Original + SubFactor4_Derivative) / 2;
 
@@ -111,7 +127,10 @@ const calculateScore = (props: Visualizer) => {
   //----------------------------------------------------------
   // Factor 5 - Bonus Points for Good Faith
   //----------------------------------------------------------
-  Factor5 = (Slider.value);
+//   Factor5 = (Slider.value);
+Factor5 = 1;
+
+
   // run the Transformation transformation
   if (SubFactor1_Transform > 50) {
       if (SubFactor1_Transform > 90) {
@@ -132,5 +151,5 @@ const calculateScore = (props: Visualizer) => {
                   (Factor3 * Factor3_Weight) +
                   (Factor4 * Factor4_Weight) +
                   (Factor5 * Factor5_Weight);
-  myScore = Math.round(myScore);
+  return Math.round(myScore);
 }

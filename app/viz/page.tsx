@@ -119,7 +119,7 @@ export default function FairUse (): React.ReactElement {
                                     )}
                                 >
                                     {step.items.map((item, itemIdx) => (
-                                        <div key={5*stepIdx+itemIdx} className='col-span-1 flex flex-col'>
+                                        <div key={5*stepIdx+itemIdx} className='col-span-1 flex flex-col text-sm'>
                                             {item.subItems.map((subItem, subItemIdx) => (
                                                 subItem.type == 'checkbox' ? (
                                                     <div key={subItemIdx} className="mt-4 space-y-4 flex flex-col">               
