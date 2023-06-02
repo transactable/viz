@@ -7,23 +7,6 @@ import VertSlider from './components/VertSlider'
 
 const [initData, slidersWeightDenominator, slidersWeightObj, factorWeight] = viz.getVizData()
 
-type RadioOption = {
-    id: number;
-    label: string;
-  };
-
-const radioOptions: RadioOption[] = [
-    { id: 0, label: 'Crticism' },
-    { id: 1, label: 'Comment' },
-    { id: 2, label: 'Reporting' },
-    { id: 3, label: 'Teaching' },
-    { id: 4, label: 'Scholarship' },
-    { id: 5, label: 'Research' },
-    { id: 6, label: 'Parody' },
-    { id: 7, label: 'Other' },
-    // Add more options as needed
-  ];
-
 export default function FairUse (): React.ReactElement {
     const [data, setData] = useState<VizData>(initData as VizData);
     const [score, setScore] = useState(0)
@@ -106,9 +89,8 @@ export default function FairUse (): React.ReactElement {
         setSelectedOption(e.target.value);
     };
 
-
     function handleWeightChange (key: any, value: any) {
-        console.log('in handle weight change')
+        // console.log('in handle weight change')
         setSlidersWeight((prevValues) => ({
             ...prevValues,
             [key]: value,
@@ -116,7 +98,7 @@ export default function FairUse (): React.ReactElement {
     }
 
     function handleFactorWeightChange (key: any, value: any) {
-        console.log('in handle factor weight change')
+        // console.log('in handle factor weight change ', value)
         setFactorsWeight((prevValues) => ({
             ...prevValues,
             [key]: value,
@@ -196,93 +178,67 @@ export default function FairUse (): React.ReactElement {
                                     )}
                                 >
                                     {step.items.map((item, itemIdx) => (
-                                       
-                                         
-                                                        <div key={5*stepIdx+itemIdx} className='col-span-1 flex flex-col text-sm justify-between'>
-                                 
-
-
-{item.subItems.map((subItem, subItemIdx) => {
-     const itemKey = itemIdx;
-     const sliderKey = `${itemKey}-${subItemIdx}`; // Generate a unique key for the VertSlider component
-  
-  return (
-    <div key={sliderKey} className="mt-4 space-y-4 flex flex-col">
-      {subItem.type === 'checkbox' ? (
-        <div className="flex items-start">
-                               
-        <div >
-          <label>
-            <input
-              type="radio"
-              name="options"
-              value={subItem.key}
-              checked={selectedOption === subItem.key}
-              onChange={handleOptionChange}
-            />
-            {/* {subItem.key} */}
-          </label>
-        </div>
-
-          {/* <div className="flex h-5 items-center">
-          <input
-                                                                    type="checkbox"
-                                                                    name={subItem.key}
-                                                                    checked={data[subItem.key as keyof VizData] as boolean}
-                                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                                                    onChange={e => {
-                                                                        handleCheckbox(e.target.checked, subItem.key)
-                                                                    }}
-                                                                />
-          </div> */}
-          <div className="ml-1 text-sm">
-            <p className="font-medium text-gray-700">{subItem.label}</p>
-          </div>
-        </div>
-      ) : (
-    <VertSlider
-          key={sliderKey}
-          item={subItem}
-          data={data}
-          id={subItemIdx} // Use subItemIdx as the unique key
-          handleField={handleField}
-        />
-      )
-    
-      }
-    </div>
-  );
-})}
-
-
-                                        
-                                        </div>
-                                      
-                        
-                                    ))}
+                                        <div key={5*stepIdx+itemIdx} className='col-span-1 flex flex-col text-sm justify-between'>
+                                            {item.subItems.map((subItem, subItemIdx) => {
+                                                const itemKey = itemIdx;
+                                                const sliderKey = `${itemKey}-${subItemIdx}`; // Generate a unique key for the VertSlider component
+                                                return (
+                                                    <div key={sliderKey} className="mt-4 space-y-4 flex flex-col">
+                                                    {subItem.type === 'checkbox' ? (
+                                                        <div className="flex items-start">                         
+                                                            <div >
+                                                                <label>
+                                                                    <input
+                                                                    type="radio"
+                                                                    name="options"
+                                                                    value={subItem.key}
+                                                                    checked={selectedOption === subItem.key}
+                                                                    onChange={handleOptionChange}
+                                                                    />
+                                                                    {/* {subItem.key} */}
+                                                                </label>
+                                                            </div>
+                                                            <div className="ml-1 text-sm">
+                                                                <p className="font-medium text-gray-700">{subItem.label}</p>
+                                                            </div>
+                                                        </div>
+                                                        ) : (
+                                                        <VertSlider
+                                                            key={sliderKey}
+                                                            item={subItem}
+                                                            data={data}
+                                                            id={subItemIdx} // Use subItemIdx as the unique key
+                                                            handleField={handleField}
+                                                            />
+                                                        )}
+                                                    </div>
+                                                    );
+                                                })}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className='mt-2 bg-white mb-8 lg:mb-0 flex flex-col p-2'>
+                                    <span>Weight</span>
+                                    <input
+                                        type="number"
+                                        step="0.1"
+                                        className='w-[60px] px-2 py-1'
+                                        value={Object.entries(factorsWeight)[stepIdx][1] || ""}
+                                        min={0}
+                                        onChange={(e) => {
+                                            const inputValue = e.target.value;
+                                            const parsedValue = parseFloat(inputValue);
+                                            const newValue = isNaN(parsedValue) ? 0 : parsedValue;
+                                            handleFactorWeightChange(Object.entries(factorsWeight)[stepIdx][0], newValue)
+                                        }}
+                                    />
                                 </div>
                             </div>
-                            <div className='mt-2 bg-white mb-8 lg:mb-0 flex flex-col p-2'>
-                                <span>Weight</span>
-                                <input
-                                    type="number"
-                                    className='w-[60px] px-2 py-1'
-                                    value={Object.entries(factorsWeight)[stepIdx][1] || ""}
-                                    min={0}
-                                    onChange={(e) => {
-                                        const inputValue = e.target.value;
-                                        const parsedValue = parseInt(inputValue, 10);
-                                        const newValue = isNaN(parsedValue) ? 0 : parsedValue;
-                                        handleFactorWeightChange(Object.entries(factorsWeight)[stepIdx][0], newValue)
-                                    }}
-                                />
-                            </div>
                         </div>
-                    </div>
-                ))}
-            </div>
-            </div>
-      
+                    ))}
+                </div>
+            </div> 
         </div>
     )
 }
