@@ -1,17 +1,38 @@
 'use client'
 import React, { useState, useRef, useEffect, FormEvent } from 'react';
-import viz, { VizData } from '@models/Viz'
+import viz, { VizData, VizWeight, FactorWeight } from '@models/Viz'
 import classnames from '../../functions/classnames'
 import styles from '@styles/FairUse.module.css'
 import VertSlider from './components/VertSlider'
 
-const [initData, slidersWeightDenominator, slidersWeightObj] = viz.getVizData()
-const slidersWeight = slidersWeightObj
+const [initData, slidersWeightDenominator, slidersWeightObj, factorWeight] = viz.getVizData()
+
+type RadioOption = {
+    id: number;
+    label: string;
+  };
+
+const radioOptions: RadioOption[] = [
+    { id: 0, label: 'Crticism' },
+    { id: 1, label: 'Comment' },
+    { id: 2, label: 'Reporting' },
+    { id: 3, label: 'Teaching' },
+    { id: 4, label: 'Scholarship' },
+    { id: 5, label: 'Research' },
+    { id: 6, label: 'Parody' },
+    { id: 7, label: 'Other' },
+    // Add more options as needed
+  ];
 
 export default function FairUse (): React.ReactElement {
     const [data, setData] = useState<VizData>(initData as VizData);
     const [score, setScore] = useState(0)
     const progressBarRef = useRef<HTMLDivElement>(null)
+    const [slidersWeight, setSlidersWeight] = useState<VizWeight>(slidersWeightObj as VizWeight)
+    const [factorsWeight, setFactorsWeight] = useState<FactorWeight>(factorWeight as FactorWeight)
+
+    const [selectedOption, setSelectedOption] = useState<string>('');
+    const [otherOptionIsSelected, setOtherOptionIsSelected] = useState<boolean>(false);
 
     useEffect(() => {
         if (progressBarRef && progressBarRef.current) {
@@ -56,7 +77,7 @@ export default function FairUse (): React.ReactElement {
             return score; // Return the score accumulator
         }, 0);
         setScore(cumulatedScore/(slidersWeightDenominator as number))
-    }, [data]);
+    }, [data, slidersWeight]);
 
     function updateFields(fields: Partial<VizData>) {
         setData(prev => {
@@ -74,17 +95,73 @@ export default function FairUse (): React.ReactElement {
         updateFields(obj)
     }
 
-    function handleCheckbox (checked: boolean, name: string) {
-        const obj = {
-            [name]: checked,
+    const handleOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.value === 'other') {
+            setOtherOptionIsSelected(true)
+            updateFields({radio: 0})
+        } else {
+            setOtherOptionIsSelected(false)
+            updateFields({radio: 1})
         }
-        updateFields(obj)
+        setSelectedOption(e.target.value);
+    };
+
+
+    function handleWeightChange (key: any, value: any) {
+        console.log('in handle weight change')
+        setSlidersWeight((prevValues) => ({
+            ...prevValues,
+            [key]: value,
+          }));
+    }
+
+    function handleFactorWeightChange (key: any, value: any) {
+        console.log('in handle factor weight change')
+        setFactorsWeight((prevValues) => ({
+            ...prevValues,
+            [key]: value,
+          }));
     }
 
     return (
         <div>
             <div className='p-4 md:p-8'>
-            <h2 className="font-semibold leading-6 text-gray-900 mb-16 text-3xl text-center">Fair Use Visualizer</h2>
+                <div className='mb-8'>
+                    {/* Factor weight  {JSON.stringify(factorsWeight)} <br />
+                {JSON.stringify(slidersWeight)} <br />
+                {JSON.stringify(data)} <br />
+                {selectedOption ? 'radio selected' : 'radio not selected'} <br />
+                    {otherOptionIsSelected ? 'other selected' : 'other not selected'} */}
+                    {/* <h2 className='text-xl font-semibold mb-2'>User-input Weightings</h2>
+                    <div className='grid grid-cols-12 gap-2'>
+                      
+                            {Object.entries(slidersWeight).map(([key, value]) => (
+                                <div key={key} className='col-span-6 md:col-span-2 border-blue-600 border-2 rounded-md p-2 flex flex-col'>
+                                <label htmlFor={key}>{key}</label>
+                                <input
+                                    type="number"
+                                    id={key}
+                                    className='w-[60px]'
+                                    value={value || ""}
+                                    min={0}
+                                    onChange={(e) => {
+                                        const inputValue = e.target.value;
+                                        const parsedValue = parseInt(inputValue, 10);
+                                        const newValue = isNaN(parsedValue) ? 0 : parsedValue;
+                                        handleWeightChange(key, newValue)
+                                    }}
+                                />
+                                </div>
+                            ))}
+              
+                    </div> */}
+                </div>
+              
+                <h2 className="font-semibold leading-6 text-gray-900 mt-16 text-3xl text-center">Fair Use Visualizer</h2>
+           
+            </div>
+            <div className='border-2 border-blue-600 rounded-lg px-1 py-2'>
+                <div className='mt-5 mb-8 px-4'>
                 <div className='w-100 flex justify-between items-center'>
                     <div className={classnames('text-2xl font-bold', score >= 50 ? 'text-green-700 font-extra-bold' : '' )}>
                         Fair use score: {Math.trunc(score)}
@@ -98,18 +175,18 @@ export default function FairUse (): React.ReactElement {
                         <span className='-ml-1'>{Math.trunc(score)}</span>
                     </div>
                 </div>
-            </div>
-            <div className="lg:grid lg:grid-cols-10 lg:gap-x-1 my-16">
+                </div>
+            <div className="lg:grid lg:grid-cols-10 lg:gap-x-1">
                 {viz.slidersArray.map((step, stepIdx) => (
-                    <div key={stepIdx}  className={classnames
+                    <div key={step.title}  className={classnames
                         (
                             'space-y-6 sm:px-1',
                             step.items.length==1 ? 'lg:col-span-1' : step.items.length==2 ? 'lg:col-span-2' : 'lg:col-span-3'
                         )}
                     >
                         <div  className="shadow sm:overflow-hidden sm:rounded-md">
-                            <div className="space-y-6 bg-white pb-8 px-4 sm:p-6 h-full">
-                                <h3 className="text-lg font-bold leading-6 text-gray-900 mb-8">
+                            <div className="bg-white p-3 h-full">
+                                <h3 className="text-lg font-bold leading-6 text-gray-900 mb-1">
                                     {step.title}
                                 </h3>
                                 <div className={classnames
@@ -119,13 +196,36 @@ export default function FairUse (): React.ReactElement {
                                     )}
                                 >
                                     {step.items.map((item, itemIdx) => (
-                                        <div key={5*stepIdx+itemIdx} className='col-span-1 flex flex-col text-sm'>
-                                            {item.subItems.map((subItem, subItemIdx) => (
-                                                subItem.type == 'checkbox' ? (
-                                                    <div key={subItemIdx} className="mt-4 space-y-4 flex flex-col">               
-                                                        <div  className="flex items-start">
-                                                            <div className="flex h-5 items-center">
-                                                                <input
+                                       
+                                         
+                                                        <div key={5*stepIdx+itemIdx} className='col-span-1 flex flex-col text-sm justify-between'>
+                                 
+
+
+{item.subItems.map((subItem, subItemIdx) => {
+     const itemKey = itemIdx;
+     const sliderKey = `${itemKey}-${subItemIdx}`; // Generate a unique key for the VertSlider component
+  
+  return (
+    <div key={sliderKey} className="mt-4 space-y-4 flex flex-col">
+      {subItem.type === 'checkbox' ? (
+        <div className="flex items-start">
+                               
+        <div >
+          <label>
+            <input
+              type="radio"
+              name="options"
+              value={subItem.key}
+              checked={selectedOption === subItem.key}
+              onChange={handleOptionChange}
+            />
+            {/* {subItem.key} */}
+          </label>
+        </div>
+
+          {/* <div className="flex h-5 items-center">
+          <input
                                                                     type="checkbox"
                                                                     name={subItem.key}
                                                                     checked={data[subItem.key as keyof VizData] as boolean}
@@ -134,26 +234,55 @@ export default function FairUse (): React.ReactElement {
                                                                         handleCheckbox(e.target.checked, subItem.key)
                                                                     }}
                                                                 />
-                                                            </div>
-                                                            <div className="ml-3 text-sm">
-                                                            <p className="font-medium text-gray-700">
-                                                                {(subItem as { label: string }).label}
-                                                            </p>
-                                                            </div>
-                                                        </div>                                    
-                                                    </div>
-                                                ) : (
-                                                    <VertSlider key={subItemIdx} item={subItem} data={data} id={itemIdx} handleField={handleField} />
-                                                )
-                                            ))}
+          </div> */}
+          <div className="ml-1 text-sm">
+            <p className="font-medium text-gray-700">{subItem.label}</p>
+          </div>
+        </div>
+      ) : (
+    <VertSlider
+          key={sliderKey}
+          item={subItem}
+          data={data}
+          id={subItemIdx} // Use subItemIdx as the unique key
+          handleField={handleField}
+        />
+      )
+    
+      }
+    </div>
+  );
+})}
+
+
+                                        
                                         </div>
+                                      
+                        
                                     ))}
                                 </div>
+                            </div>
+                            <div className='mt-2 bg-white mb-8 lg:mb-0 flex flex-col p-2'>
+                                <span>Weight</span>
+                                <input
+                                    type="number"
+                                    className='w-[60px] px-2 py-1'
+                                    value={Object.entries(factorsWeight)[stepIdx][1] || ""}
+                                    min={0}
+                                    onChange={(e) => {
+                                        const inputValue = e.target.value;
+                                        const parsedValue = parseInt(inputValue, 10);
+                                        const newValue = isNaN(parsedValue) ? 0 : parsedValue;
+                                        handleFactorWeightChange(Object.entries(factorsWeight)[stepIdx][0], newValue)
+                                    }}
+                                />
                             </div>
                         </div>
                     </div>
                 ))}
             </div>
+            </div>
+      
         </div>
     )
 }

@@ -1,12 +1,13 @@
 export type VizData = {
-    criticism?: boolean,
-    comment?: boolean,	
-    reporting?: boolean,
-    teaching?: boolean,
-    scholarship?: boolean,	
-    research?: boolean,
-    parody?: boolean,
-    other?: boolean,	
+    // criticism?: boolean,
+    // comment?: boolean,	
+    // reporting?: boolean,
+    // teaching?: boolean,
+    // scholarship?: boolean,	
+    // research?: boolean,
+    // parody?: boolean,
+    // other?: boolean,	
+    radio?: number,
     commercial?: number,	
     supplants?: number,	
     extremely?: number,	
@@ -17,6 +18,30 @@ export type VizData = {
     extreme2?: number,	
     duplicitous?: number,	
   }
+
+  export type VizWeight = {
+    radio?: number,
+    commercial?: number,	
+    supplants?: number,	
+    extremely?: number,	
+    all1?: number,	
+    substantial?: number,	
+    all2?: number,	
+    extreme1?: number,	
+    extreme2?: number,	
+    duplicitous?: number,	
+  }
+
+  export type FactorWeight = {
+    factor1: number,
+    factor2: number,
+    factor3: number,
+    factor4: number,
+    factor5: number,
+  }
+
+
+
 
 export type CheckboxSubItem = {
     id: number;
@@ -292,36 +317,18 @@ const slidersArray: SliderItem[] = [
     }
 ]
 
-export interface SliderData {
-    criticism?: boolean,
-    comment?: boolean,	
-    reporting?: boolean,
-    teaching?: boolean,
-    scholarship?: boolean,	
-    research?: boolean,
-    parody?: boolean,
-    other?: boolean,	
-    commercial?: number,	
-    supplants?: number,	
-    extremely?: number,	
-    all1?: number,	
-    substantial?: number,	
-    all2?: number,	
-    extreme1?: number,	
-    extreme2?: number,	
-    duplicitous?: number,	
-}
 
 const getVizData = () => {
-    const workingObjInitData: SliderData = {
-        criticism: false,
-        comment: false,
-        reporting: false,
-        teaching: false,
-        scholarship: false,
-        research: false,
-        parody: false,
-        other: false,
+    const workingObjInitData: VizData = {
+        // criticism: false,
+        // comment: false,
+        // reporting: false,
+        // teaching: false,
+        // scholarship: false,
+        // research: false,
+        // parody: false,
+        // other: false,
+        radio: 0,
         commercial: 0,
         supplants: 0,
         extremely: 0,
@@ -332,17 +339,29 @@ const getVizData = () => {
         extreme2: 0,
         duplicitous: 0,
       };
-    const workingObjWeight: { [key: string]: number } = {};
+    const workingObjWeight: VizWeight = {};
     let slidersWeightDenominator = 0
     slidersArray.map((slider) => {
         slider.items.map((item) => {
-            item.subItems.map((subItem) => {
-                slidersWeightDenominator += subItem.weight;
-                workingObjWeight[subItem.key] = subItem.weight;
-              });
+            if (item.subItems.length>1) {
+                slidersWeightDenominator += 1;
+                workingObjWeight['radio'] = 1;
+            } else {
+                item.subItems.map((subItem) => {
+                    slidersWeightDenominator += subItem.weight;
+                    workingObjWeight[subItem.key as keyof VizWeight] = subItem.weight;
+                });
+            }
         })
     })
-    return [workingObjInitData, slidersWeightDenominator, workingObjWeight]
+    const factorWeight: FactorWeight = {
+        factor1: 1,
+        factor2: 1,
+        factor3: 1,
+        factor4: 1,
+        factor5: 1
+    }
+    return [workingObjInitData, slidersWeightDenominator, workingObjWeight, factorWeight]
 } 
 
 // 👇️ assign to variable
