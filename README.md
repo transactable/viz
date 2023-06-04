@@ -1,10 +1,43 @@
-# User-Input Fair-Use Calculator
+# Fair Use User-Input Calculator
 
-This project contains a user-input fair-use calculator implemented in the Next.js application. The calculator is located in the root/app/viz page directory and utilizes a component called VertSlider.
+This is a user-input calculator designed to determine the fair use score based on a preconfigured model. The calculator is built using Next.js and React.js, providing an interactive and intuitive interface for users to input their preferences. This README.md file will provide an overview of the calculator, its features, and how to use it effectively.
 
-The original nav bar selector 'Visualizer' has been refactored and added as 'Viz' additional nav bar page selector.
+## Introduction
+The Fair Use User-Input Calculator allows users to determine a fair use score based on their preferences and input settings. The calculator utilizes a parameterized model that defines the fair use factors, weights, and input options. Users can interact with radio buttons and vertical sliders to provide their input, and the calculator calculates the fair use score based on the user's selections.
 
-'Viz' is the new, refactored update.
+## Features
+- Interactive user interface for easy input selection
+- Parameterized model for flexibility and customization
+- Automatic calculation of fair use score based on user input
+- Multiple levels of weights to accommodate complex relationships between inputs
+
+## Usage
+1. **Installation**: Clone the repository and install the necessary dependencies using `npm install`.
+
+2. **Starting the Calculator**: Run the application using `npm start`. The calculator will be accessible at `http://localhost:3000` in your browser.
+
+3. **Input Selection**: Use the provided radio buttons and vertical sliders to input your preferences and selections. The calculator will dynamically update the fair use score based on your input.
+
+4. **Viewing the Score**: Once you have made your selections, the fair use score will be displayed on the screen. This score represents the calculated fair use score based on your input settings.
+
+## Model Configuration
+The fair use model used in the calculator is parameterized and can be customized according to specific requirements. The model is defined using a TypeScript/JavaScript object that specifies the factors, weights, and input options.
+
+The model object contains five top-level groups called "factors". Each factor has a weight assigned to it. Within each factor, there are different input options such as radio buttons and vertical sliders. Each input option has its own weight within the factor.
+
+The model object is preconfigured and can be modified to suit your specific needs. You can adjust the factors, weights, and input options to match your desired fair use criteria.
+
+## Calculating the Fair Use Score
+The fair use score is calculated based on the user's input selections and the corresponding weights defined in the model. The calculator combines the user inputs and weights to determine the fair use score.
+
+The calculation process involves scaling certain weights and inputs depending on other input settings. This allows for a complex relationship between the inputs and groups of inputs, enabling a more accurate fair use score calculation.
+
+## Contributing
+Contributions to the Fair Use User-Input Calculator are welcome. If you have any suggestions, bug reports, or feature requests, please submit them to the GitHub repository. We appreciate your feedback and contributions to improve the calculator.
+
+## License
+The Fair Use User-Input Calculator is open-source software licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute the calculator according to the terms of the license.
+
 
 ## Project Structure
 

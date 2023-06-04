@@ -130,7 +130,7 @@ export default function FairUse (): React.ReactElement {
 
     return (
         <div>
-            {JSON.stringify(weights)}
+            {/* {JSON.stringify(weights)} */}
             <h2 className="font-semibold leading-6 text-gray-900 mt-16 mb-8 text-3xl text-center">Fair Use Visualizer</h2>
             <div className='border-2 border-blue-600 rounded-lg px-1 py-2'>
                 <div className='mt-5 mb-8 px-4'>
