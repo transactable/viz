@@ -1,3 +1,31 @@
+export interface Visualizer {
+    factor1: number;
+    factor1Weight: number;
+    subFactor1Use: number;
+    subFactor1Purpose: number;
+    subFactor1Transform: number;
+  
+    factor2: number;
+    factor2Weight: number;
+  
+    factor3: number;
+    factor3Weight: number;
+    subFactor3Taken: number;
+    subFactor3Quality: number;
+    subFactor3Ratio: number;
+  
+    factor4: number;
+    factor4Weight: number;
+    subFactor4Original: number;
+    subFactor4Derivative: number;
+  
+    factor5: number;
+    factor5Weight: number;
+  
+    score: number;
+  }
+
+
 export type VizData = {
     // criticism?: boolean,
     // comment?: boolean,	
@@ -67,10 +95,14 @@ export type VizSubItem = {
 export type SubItem = CheckboxSubItem | VizSubItem;
 
 export type SliderItem = {
-id: number;
+    id: number;
+    name: string;
+    weight: number;
     title: string;
     subtitle: string;
     items: {
+        name: string,
+        weight: number;
         subItems: SubItem[];
     }[];
 };
@@ -78,10 +110,15 @@ id: number;
 const slidersArray: SliderItem[] = [
     {
         id: 0,
+        name: 'factor1',
+        weight: 1.0,
         title: 'Purpose of Use',
         subtitle: "",
         items: [
-            { subItems: 
+            { 
+                name: 'subFactor1Use',
+                weight: 0.33,
+                subItems: 
                 [
                     {
                         id: 0,
@@ -89,7 +126,7 @@ const slidersArray: SliderItem[] = [
                         key: 'criticism',
                         label: 'Criticism',
                         initValue: false,
-                        weight: 5
+                        weight: 1
                     },
                     {
                         id: 1,
@@ -149,7 +186,10 @@ const slidersArray: SliderItem[] = [
                     }
                 ]
             },
-            { subItems: 
+            { 
+                name: 'subFactor1Purpose',
+                weight: 0.33,
+                subItems: 
                 [
                     {
                         id: 8,
@@ -164,7 +204,10 @@ const slidersArray: SliderItem[] = [
                     }
                 ]
             },
-            { subItems: 
+            { 
+                name: 'subFactor1Transform',
+                weight: 0.33,
+                subItems: 
                 [
                     {
                         id: 9,
@@ -183,10 +226,15 @@ const slidersArray: SliderItem[] = [
     },
     {
         id: 1,
+        name: 'factor2',
+        weight: 1.0,
         title: 'Nature',
         subtitle: "",
         items: [
-            { subItems: 
+            { 
+                name: 'factor2',
+                weight: 1.0,
+                subItems: 
                 [
                     {
                         id: 10,
@@ -205,10 +253,15 @@ const slidersArray: SliderItem[] = [
     },
     {
         id: 2,
+        name: 'factor3',
+        weight: 1.0,
         title: 'Relative Amount',
         subtitle: "",
         items: [
-            { subItems: 
+            { 
+                name: 'subFactor3Taken',
+                weight: 0.33,
+                subItems: 
                 [
                     {
                         id: 11,
@@ -223,7 +276,10 @@ const slidersArray: SliderItem[] = [
                     },
                 ]
             },
-            { subItems: 
+            { 
+                name: 'subFactor3Quality',
+                weight: 0.33,
+                subItems: 
                 [
        
                     {
@@ -239,7 +295,10 @@ const slidersArray: SliderItem[] = [
                     },
                 ]
             },
-            { subItems: 
+            { 
+                name: 'subFactor3Ratio',
+                weight: 0.33,
+                subItems: 
                 [
                     {
                         id: 13,
@@ -258,10 +317,15 @@ const slidersArray: SliderItem[] = [
     },
     {
         id: 3,
+        name: 'factor4',
+        weight: 1.0,
         title: 'Market Effect',
         subtitle: "",
         items: [
-            { subItems: 
+            { 
+                name: 'subFactor4Original',
+                weight: 0.5,
+                subItems: 
                 [
                     {
                         id: 14,
@@ -276,7 +340,10 @@ const slidersArray: SliderItem[] = [
                     },
                 ]
             },
-            { subItems: 
+            { 
+                name: 'subFactor4Derivative',
+                weight: 0.5,
+                subItems: 
                 [
                     {
                         id: 15,
@@ -295,10 +362,15 @@ const slidersArray: SliderItem[] = [
     },
     {
         id: 4,
+        name: 'factor5',
+        weight: 1.0,
         title: 'Bonus',
         subtitle: "",
         items: [
-            { subItems: 
+            { 
+                name: 'factor5',
+                weight: 1.0,
+                subItems: 
                 [
                     {
                         id: 16,
