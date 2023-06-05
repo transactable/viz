@@ -123,21 +123,7 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-## Deploy on AWS EC2
-#### **`$`**
-```
-su djangoadmin
-cd /home/djangoadmin/reactapps/weds
-./git_clone
-cd viz
-npm install
-npm run build
-pm2 delete all
-pm2 save
-pm2 start npm --name "next" -- start
-pm2 save
-pm2 list
-```
+
 
 
 
