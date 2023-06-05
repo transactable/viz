@@ -93,7 +93,6 @@ export default function FairUse (): React.ReactElement {
                         const factorId= digitCharArray[0]
                         const factorIdInt: number = parseInt(factorId)
                         const factorWeightArray = Object.entries(weights).filter(([key, value]) => key.includes(factorId));
-                        const factorWeight = factorWeightArray[0][1]
                         const localWeight =sliderWeights[localWeightKey as keyof Visualizer]
                         const denominator = Object.values(weights).reduce((acc, curr) => acc + curr, 0)
                         // score += value*localWeight*factorWeight/denominator
@@ -243,28 +242,20 @@ export default function FairUse (): React.ReactElement {
                                     }}
                                 />
                                 <h3 className={classnames(
-                                        'text-lg font-bold leading-6 text-gray-900 mt-2 h-[25px]',
-                                        subFactor1TransformIsActive ? 'text-orange-400' : 'text-black'
+                                        'text-lg font-bold leading-6 mt-2 h-[25px]',
+                                        subFactor1TransformIsActive ? 'text-orange-400' : 'text-gray-400'
                                     )}
                                     >
                                     {stepIdx==0&&subFactor1TransformIsActive ? 'Transform is in effect' : stepIdx==0 ? 'Transform is not applied' : ''} 
                                 </h3>
-                                <div className='mt-0 bg-white mb-8 lg:mb-0 flex flex-col py-2 justify-end italic'>
-                                    <span>weight&apos;</span>
-                                    <input
-                                        disabled
-                                        type="number"
-                                        step="0.1"
-                                        className='w-full px-2 py-1'
-                                        value={Math.floor(workingFactorWeights[stepIdx]*1000)/1000 || ""}
-                                        min={0}
-                                        onChange={(e) => {
-                                            const inputValue = e.target.value;
-                                            const parsedValue = parseFloat(inputValue);
-                                            const newValue = isNaN(parsedValue) ? 0 : parsedValue;
-                                            handleFactorWeightChange(Object.keys(weights)[stepIdx], newValue)
-                                        }}
-                                    />
+                                <div 
+                                    className={classnames(
+                                        'mt-0 bg-white mb-8 lg:mb-0 flex flex-col py-2 justify-end',
+                                        subFactor1TransformIsActive ? 'text-black' : 'text-gray-400'
+                                    )}
+                                >
+                                    <span className='italic'>weight&apos;</span>
+                                    <p className='w-full mt-2'>{Math.floor(workingFactorWeights[stepIdx]*1000)/1000 || ""}</p>
                                 </div>
                             </div>
                         </div>
